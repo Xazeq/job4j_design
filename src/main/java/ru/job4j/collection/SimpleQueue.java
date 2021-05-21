@@ -13,8 +13,6 @@ public class SimpleQueue<T> {
                 outCount++;
             }
             inCount = 0;
-            outCount--;
-            return out.pop();
         }
         outCount--;
         return out.pop();
