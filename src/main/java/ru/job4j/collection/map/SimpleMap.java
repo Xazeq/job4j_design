@@ -56,7 +56,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (table[index] == null) {
             return null;
         }
-        return table[index].value;
+        if (key.equals(table[index].key)) {
+            return table[index].value;
+        }
+        return null;
     }
 
     @Override
@@ -66,8 +69,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (table[index] == null) {
             return false;
         }
-        table[index] = null;
-        return true;
+        if (key.equals(table[index].key)) {
+            table[index] = null;
+            return true;
+        }
+        return false;
     }
 
     @Override
