@@ -34,7 +34,9 @@ public class SimpleTreeTest {
     public void whenAddSameChild() {
         Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(1, 2);
+        tree.add(1, 3);
         assertFalse(tree.add(1, 2));
+        assertFalse(tree.add(3, 2));
     }
 
     @Test
