@@ -15,7 +15,7 @@ public class WriteMatrix {
                     String str = value + " ";
                     out.write(str.getBytes());
                 }
-                out.write("\n".getBytes());
+                out.write(System.lineSeparator().getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();
