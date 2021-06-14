@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Analize {
     public static Info diff(List<User> previous, List<User> current) {
         Map<Integer, String> previousMap = new HashMap<>();
-        Map<Integer, String> currentMap = new HashMap<>();
         int added = 0;
         int changed = 0;
         int deleted;
@@ -16,14 +15,11 @@ public class Analize {
             previousMap.put(user.id, user.name);
         }
         for (var user : current) {
-            currentMap.put(user.id, user.name);
-        }
-        for (var id : currentMap.keySet()) {
-            if (previousMap.get(id) == null) {
+            if (previousMap.get(user.id) == null) {
                 added++;
                 continue;
             }
-            if (!previousMap.get(id).equals(currentMap.get(id))) {
+            if (!previousMap.get(user.id).equals(user.name)) {
                 changed++;
             }
         }
