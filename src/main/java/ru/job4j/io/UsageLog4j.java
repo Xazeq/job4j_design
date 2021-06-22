@@ -12,5 +12,16 @@ public class UsageLog4j {
         LOG.info("info message");
         LOG.warn("warn message");
         LOG.error("error message");
+
+        byte byteNumber = 4;
+        short shortNumber = 200;
+        int intNumber = 1234;
+        long longNumber = 5000000000L;
+        float floatNumber = 12.4F;
+        double doubleNumber = 23.33;
+        boolean b = true;
+        char ch = 'a';
+        LOG.debug("Byte = {}, short = {}, int = {}, long = {}, float = {}, double = {}, boolean = {}, char = {}",
+                byteNumber, shortNumber, intNumber, longNumber, floatNumber, doubleNumber, b, ch);
     }
 }
