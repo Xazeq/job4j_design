@@ -2,15 +2,19 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
 public class Car {
-    private final boolean is4WD;
-    private final String manufacturer;
-    private final int numberOfDoors;
-    private final Engine engine;
-    private final String[] options;
+    private boolean is4WD;
+    private String manufacturer;
+    private int numberOfDoors;
+    private Engine engine;
+    private String[] options;
+
+    public Car() {
+    }
 
     public Car(boolean is4WD, String manufacturer, int numberOfDoors, Engine engine, String... options) {
         this.is4WD = is4WD;
@@ -18,6 +22,26 @@ public class Car {
         this.numberOfDoors = numberOfDoors;
         this.engine = engine;
         this.options = options;
+    }
+
+    public boolean isIs4WD() {
+        return is4WD;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public int getNumberOfDoors() {
+        return numberOfDoors;
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public String[] getOptions() {
+        return options;
     }
 
     @Override
@@ -51,5 +75,20 @@ public class Car {
                 + "}";
         final Car carFromJson = gson.fromJson(carJson, Car.class);
         System.out.println(carFromJson);
+        System.out.println("---------------------------------");
+        //JSONObject из json-строки строки
+        JSONObject jsonObjectFromString = new JSONObject(carJson);
+        System.out.println(jsonObjectFromString);
+        //JSONObject напрямую методом put
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("is4WD", car.isIs4WD());
+        jsonObject.put("manufacturer", car.getManufacturer());
+        jsonObject.put("numberOfDoors", car.getNumberOfDoors());
+        jsonObject.put("engine", car.getEngine());
+        jsonObject.put("options", car.getOptions());
+        System.out.println(jsonObject);
+        //car в json строку
+        String jsonCar = new JSONObject(car).toString();
+        System.out.println(jsonCar);
     }
 }
