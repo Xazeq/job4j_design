@@ -1,8 +1,18 @@
 package ru.job4j.serialization.xml;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "engine")
 public class Engine {
-    private final int numberOfCylinders;
-    private final double power;
+    @XmlAttribute
+    private  int numberOfCylinders;
+    @XmlAttribute
+    private  double power;
+
+    public Engine() {
+
+    }
 
     public Engine(int numberOfCylinders, double power) {
         this.numberOfCylinders = numberOfCylinders;
