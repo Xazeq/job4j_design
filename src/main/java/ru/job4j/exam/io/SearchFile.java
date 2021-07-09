@@ -7,14 +7,14 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.function.Predicate;
 
 public class SearchFile extends SimpleFileVisitor<Path> {
     private final List<Path> files = new ArrayList<>();
-    private final Map<String, String> arguments;
+    private final Predicate<Path> condition;
 
-    public SearchFile(Map<String, String> arguments) {
-        this.arguments = arguments;
+    public SearchFile(Predicate<Path> condition) {
+        this.condition = condition;
     }
 
     public List<Path> getFiles() {
@@ -23,20 +23,8 @@ public class SearchFile extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (arguments.get("t").equals("mask")) {
-            if (file.toString().endsWith(arguments.get("n").substring(1))) {
-                files.add(file);
-            }
-        }
-        if (arguments.get("t").equals("name")) {
-            if (file.getFileName().toString().equals(arguments.get("n"))) {
-                files.add(file);
-            }
-        }
-        if (arguments.get("t").equals("regex")) {
-            if (file.getFileName().toString().matches(arguments.get("n"))) {
-                files.add(file);
-            }
+        if (condition.test(file)) {
+            files.add(file);
         }
         return super.visitFile(file, attrs);
     }

@@ -9,6 +9,9 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Search {
     private final Map<String, String> arguments = new HashMap<>();
@@ -31,14 +34,34 @@ public class Search {
             }
             search.arguments.put(argument[0].substring(1), argument[1]);
         }
-        SearchFile searchFile = new SearchFile(search.arguments);
+        search.findFiles(search);
+        search.writeFiles(search);
+    }
+
+    private void findFiles(Search search) throws IOException {
+        SearchFile searchFile = new SearchFile(search.getPredicate());
         Files.walkFileTree(Path.of(search.arguments.get("d")), searchFile);
         search.files = searchFile.getFiles();
+    }
 
+    private void writeFiles(Search search) throws IOException {
         try (PrintWriter printWriter = new PrintWriter(
                 new BufferedOutputStream(
-                    new FileOutputStream(search.arguments.get("o"))))) {
+                        new FileOutputStream(search.arguments.get("o"))))) {
             search.files.forEach(printWriter::println);
         }
+    }
+
+    private Predicate<Path> getPredicate() {
+        return switch (arguments.get("t")) {
+            case "mask" -> (file -> file.toString().endsWith(arguments.get("n").substring(1)));
+            case "name" -> (file -> file.getFileName().toString().equals(arguments.get("n")));
+            case "regex" -> (file -> {
+                Pattern pattern = Pattern.compile(arguments.get("n"));
+                Matcher matcher = pattern.matcher(file.getFileName().toString());
+                return matcher.find();
+            });
+            default -> throw new IllegalArgumentException("Неверный тип поиска");
+        };
     }
 }
