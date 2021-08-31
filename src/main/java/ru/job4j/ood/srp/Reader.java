@@ -1,4 +1,4 @@
-package ru.job4j.ood.ocp;
+package ru.job4j.ood.srp;
 
 import java.io.InputStream;
 

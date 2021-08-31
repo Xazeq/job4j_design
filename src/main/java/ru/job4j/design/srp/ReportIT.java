@@ -15,10 +15,10 @@ public class ReportIT implements Report {
         text.append("<html><head><title>IT Report</title></head>")
                 .append("<body>")
                 .append("<h1>Name; Hired; Fired; Salary;</h1>")
-                .append(System.lineSeparator())
-                .append("<p>");
+                .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
-            text.append(employee.getName()).append(";")
+            text.append("<p>")
+                    .append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
                     .append(employee.getFired()).append(";")
                     .append(employee.getSalary()).append(";")
