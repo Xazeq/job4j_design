@@ -117,4 +117,86 @@ public class ReportEngineTest {
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
+
+    @Test
+    public void whenJSONReportGenerated() {
+        MemStore store = new MemStore();
+        Calendar date = Calendar.getInstance();
+        date.set(2021, 8, 30, 0, 0, 0);
+        Employee worker = new Employee("Ivan", date, date, 100);
+        Employee worker2 = new Employee("Egor", date, date, 150);
+        store.add(worker);
+        store.add(worker2);
+        Report engine = new ReportJSON(store);
+        String expect =
+                "{"
+                    + "\"name\":\"Ivan\","
+                    + "\"hired\":"
+                        + "{"
+                            + "\"year\":2021,"
+                            + "\"month\":8,"
+                            + "\"dayOfMonth\":30,"
+                            + "\"hourOfDay\":0,"
+                            + "\"minute\":0,"
+                            + "\"second\":0"
+                        + "},"
+                    + "\"fired\":"
+                        + "{"
+                            + "\"year\":2021,"
+                            + "\"month\":8,"
+                            + "\"dayOfMonth\":30,"
+                            + "\"hourOfDay\":0,"
+                            + "\"minute\":0,"
+                            + "\"second\":0"
+                        + "},"
+                    + "\"salary\":100.0"
+                + "}"
+                + System.lineSeparator()
+                + "{"
+                    + "\"name\":\"Egor\","
+                    + "\"hired\":"
+                        + "{"
+                            + "\"year\":2021,"
+                            + "\"month\":8,"
+                            + "\"dayOfMonth\":30,"
+                            + "\"hourOfDay\":0,"
+                            + "\"minute\":0,"
+                            + "\"second\":0"
+                        + "},"
+                    + "\"fired\":"
+                        + "{"
+                            + "\"year\":2021,"
+                            + "\"month\":8,"
+                            + "\"dayOfMonth\":30,"
+                            + "\"hourOfDay\":0,"
+                            + "\"minute\":0,"
+                            + "\"second\":0"
+                        + "},"
+                    + "\"salary\":150.0"
+                + "}"
+                + System.lineSeparator();
+        assertThat(engine.generate(em -> true), is(expect));
+    }
+
+    @Test
+    public void whenXMLReportGenerated() {
+        MemStore store = new MemStore();
+        Calendar date = Calendar.getInstance();
+        date.set(2021, 8, 30, 0, 0, 0);
+        Employee worker = new Employee("Ivan", date, date, 100);
+        Employee worker2 = new Employee("Egor", date, date, 150);
+        store.add(worker);
+        store.add(worker2);
+        Report engine = new ReportXML(store);
+        StringBuilder expect = new StringBuilder();
+        expect.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
+                .append("\n")
+                .append("<employee name=\"Ivan\" salary=\"100.0\"/>")
+                .append("\n")
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
+                .append("\n")
+                .append("<employee name=\"Egor\" salary=\"150.0\"/>")
+                .append("\n");
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
 }
