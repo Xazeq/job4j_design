@@ -18,31 +18,19 @@ public class ControlQualityTest {
                         LocalDate.now().plusDays(10),
                         LocalDate.now().minusDays(1),
                         50,
-                        20),
+                        0),
                 new Food("apple",
                         LocalDate.now().plusDays(20),
                         LocalDate.now().minusDays(5),
                         78,
-                        30)
+                        0)
         );
         ControlQuality cq = new ControlQuality(stores);
         for (var food : foods) {
             cq.reallocate(food);
         }
-        List<Food> expected = List.of(
-                new Food("milk",
-                        LocalDate.now().plusDays(10),
-                        LocalDate.now().minusDays(1),
-                        50,
-                        20),
-                new Food("apple",
-                        LocalDate.now().plusDays(20),
-                        LocalDate.now().minusDays(5),
-                        78,
-                        30)
-        );
         List<Food> result = stores.get(0).getFoodList();
-        assertThat(result, is(expected));
+        assertThat(result, is(foods));
     }
 
     @Test
@@ -53,31 +41,19 @@ public class ControlQualityTest {
                         LocalDate.now().plusDays(3),
                         LocalDate.now().minusDays(2),
                         50,
-                        20),
+                        0),
                 new Food("apple",
                         LocalDate.now().plusDays(10),
                         LocalDate.now().minusDays(5),
                         78,
-                        30)
+                        0)
         );
         ControlQuality cq = new ControlQuality(stores);
         for (var food : foods) {
             cq.reallocate(food);
         }
-        List<Food> expected = List.of(
-                new Food("milk",
-                        LocalDate.now().plusDays(3),
-                        LocalDate.now().minusDays(2),
-                        50,
-                        20),
-                new Food("apple",
-                        LocalDate.now().plusDays(10),
-                        LocalDate.now().minusDays(5),
-                        78,
-                        30)
-        );
         List<Food> result = stores.get(0).getFoodList();
-        assertThat(result, is(expected));
+        assertThat(result, is(foods));
     }
 
     @Test
@@ -88,31 +64,20 @@ public class ControlQualityTest {
                         LocalDate.now().plusDays(3),
                         LocalDate.now().minusDays(10),
                         50,
-                        20),
+                        0),
                 new Food("apple",
                         LocalDate.now().plusDays(2),
                         LocalDate.now().minusDays(9),
                         80,
-                        30)
+                        0)
         );
         ControlQuality cq = new ControlQuality(stores);
         for (var food : foods) {
             cq.reallocate(food);
         }
-        List<Food> expected = List.of(
-                new Food("milk",
-                        LocalDate.now().plusDays(3),
-                        LocalDate.now().minusDays(10),
-                        40,
-                        20),
-                new Food("apple",
-                        LocalDate.now().plusDays(2),
-                        LocalDate.now().minusDays(9),
-                        56,
-                        30)
-        );
         List<Food> result = stores.get(0).getFoodList();
-        assertThat(result, is(expected));
+        assertThat(result.get(0).getDiscount(), is(25.0));
+        assertThat(result.get(1).getDiscount(), is(25.0));
     }
 
     @Test
@@ -123,31 +88,19 @@ public class ControlQualityTest {
                         LocalDate.now(),
                         LocalDate.now().minusDays(10),
                         50,
-                        20),
+                        0),
                 new Food("apple",
                         LocalDate.now().minusDays(2),
                         LocalDate.now().minusDays(9),
                         80,
-                        30)
+                        0)
         );
         ControlQuality cq = new ControlQuality(stores);
         for (var food : foods) {
             cq.reallocate(food);
         }
-        List<Food> expected = List.of(
-                new Food("milk",
-                        LocalDate.now(),
-                        LocalDate.now().minusDays(10),
-                        50,
-                        20),
-                new Food("apple",
-                        LocalDate.now().minusDays(2),
-                        LocalDate.now().minusDays(9),
-                        80,
-                        30)
-        );
         List<Food> result = stores.get(0).getFoodList();
-        assertThat(result, is(expected));
+        assertThat(result, is(foods));
     }
 
     @Test
@@ -158,22 +111,22 @@ public class ControlQualityTest {
                         LocalDate.now().plusDays(3),
                         LocalDate.now().minusDays(3),
                         50,
-                        20),
+                        0),
                 new Food("apple",
                         LocalDate.now().plusDays(10),
                         LocalDate.now().minusDays(1),
                         78,
-                        30),
+                        0),
                 new Food("bread",
                         LocalDate.now(),
                         LocalDate.now().minusDays(5),
                         45,
-                        10),
+                        0),
                 new Food("meat",
                         LocalDate.now().plusDays(1),
                         LocalDate.now().minusDays(10),
                         150,
-                        20)
+                        0)
         );
         ControlQuality cq = new ControlQuality(stores);
         for (var food : foods) {
@@ -182,6 +135,7 @@ public class ControlQualityTest {
         assertThat(stores.get(0).getFoodList().get(0).getName(), is("apple"));
         assertThat(stores.get(1).getFoodList().get(0).getName(), is("milk"));
         assertThat(stores.get(1).getFoodList().get(1).getName(), is("meat"));
+        assertThat(stores.get(1).getFoodList().get(1).getDiscount(), is(25.0));
         assertThat(stores.get(2).getFoodList().get(0).getName(), is("bread"));
     }
 }

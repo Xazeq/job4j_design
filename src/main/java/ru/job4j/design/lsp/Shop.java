@@ -13,7 +13,7 @@ public class Shop implements Store {
             foods.add(food);
             return true;
         } else if (percent > 75 && percent < 100) {
-            food.setPrice(food.getPrice() - (food.getPrice() / 100) * food.getDiscount());
+            food.setDiscount(25);
             foods.add(food);
             return true;
         }
