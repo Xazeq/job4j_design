@@ -6,7 +6,10 @@ import java.util.function.Predicate;
 public class Example1 {
 
     private interface OfficeEmployees {
-        public ArrayList<String> findEmployees(Predicate<String> predicate);
+        //В данном случае поле, параметр конструктора и тип возвращаемого значения
+        //метода findEmployees это реализованный класс, а не абстракция
+        //Проблемы возникнут, если я захочу использовать LinkedList для хранения работников
+        ArrayList<String> findEmployees(Predicate<String> predicate);
     }
 
     private static class NewOfficeEmployees implements OfficeEmployees {
