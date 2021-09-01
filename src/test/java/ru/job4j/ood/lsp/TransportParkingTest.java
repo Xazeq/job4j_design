@@ -8,7 +8,7 @@ import static org.hamcrest.core.Is.is;
 
 public class TransportParkingTest {
 
-    @Ignore
+    /*@Ignore
     @Test
     public void whenAddCarToParking() {
         TransportParking parking = new TransportParking(4);
@@ -56,5 +56,5 @@ public class TransportParkingTest {
         TransportParking parking = new TransportParking(2);
         Transport truck = new Truck(4);
         assertFalse(parking.park(truck));
-    }
+    }*/
 }
