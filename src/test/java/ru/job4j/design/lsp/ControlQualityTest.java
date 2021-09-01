@@ -138,4 +138,30 @@ public class ControlQualityTest {
         assertThat(stores.get(1).getFoodList().get(1).getDiscount(), is(25.0));
         assertThat(stores.get(2).getFoodList().get(0).getName(), is("bread"));
     }
+
+    @Test
+    public void whenResortAllFoodToTrash() {
+        List<Store> stores = List.of(new Warehouse(), new Shop(), new Trash());
+        List<Food> foods = List.of(
+                new Food("apple",
+                        LocalDate.now().plusDays(10),
+                        LocalDate.now().minusDays(1),
+                        78,
+                        0),
+                new Food("milk",
+                        LocalDate.now().plusDays(3),
+                        LocalDate.now().minusDays(3),
+                        50,
+                        0)
+        );
+        ControlQuality cq = new ControlQuality(stores);
+        for (var food : foods) {
+            cq.reallocate(food);
+        }
+        stores.get(0).getFoodList().get(0).setExpireDate(LocalDate.now());
+        stores.get(1).getFoodList().get(0).setExpireDate(LocalDate.now());
+        cq.resort();
+        assertThat(stores.get(2).getFoodList().get(0).getName(), is("apple"));
+        assertThat(stores.get(2).getFoodList().get(1).getName(), is("milk"));
+    }
 }
