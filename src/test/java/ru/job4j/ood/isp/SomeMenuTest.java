@@ -13,14 +13,14 @@ public class SomeMenuTest {
     public void whenAddMenu() {
         Item item = new Item("Меню", List.of(
                 new Item("Задача 1.", List.of(
-                        new Item("Задача 1.1.", new ArrayList<>(), 2),
-                        new Item("Задача 1.2.", new ArrayList<>(), 2)
-                ), 1),
+                        new Item("Задача 1.1.", new ArrayList<>()),
+                        new Item("Задача 1.2.", new ArrayList<>())
+                )),
                 new Item("Задача 2.", List.of(
                         new Item("Задача 2.1.", List.of(
-                                new Item("Задача 2.1.1.", new ArrayList<>(), 4)
-                        ), 2)
-                ), 1)), 0);
+                                new Item("Задача 2.1.1.", new ArrayList<>())
+                        ))
+                ))));
         SomeMenu someMenu = new SomeMenu();
         someMenu.addMenu(item);
         List<Item> result = someMenu.getItemList();
@@ -31,17 +31,17 @@ public class SomeMenuTest {
     public void whenSelectItemFromMenu() {
         Item item = new Item("Меню", List.of(
                 new Item("Задача 1.", List.of(
-                        new Item("Задача 1.1.", new ArrayList<>(), 2),
-                        new Item("Задача 1.2.", new ArrayList<>(), 2)
-                ), 1),
+                        new Item("Задача 1.1.", new ArrayList<>()),
+                        new Item("Задача 1.2.", new ArrayList<>())
+                )),
                 new Item("Задача 2.", List.of(
                         new Item("Задача 2.1.", List.of(
-                                new Item("Задача 2.1.1.", new ArrayList<>(), 4)
-                        ), 2)
-                ), 1)), 0);
+                                new Item("Задача 2.1.1.", new ArrayList<>())
+                        ))
+                ))));
         SomeMenu someMenu = new SomeMenu();
         someMenu.addMenu(item);
-        Item expected = new Item("Задача 2.1.1.", new ArrayList<>(), 4);
+        Item expected = new Item("Задача 2.1.1.", new ArrayList<>());
         Item result = someMenu.select("Задача 2.1.1.");
         assertThat(result.getName(), is(expected.getName()));
     }

@@ -5,12 +5,10 @@ import java.util.List;
 public class Item {
     private String name;
     private List<Item> itemList;
-    private int level;
 
-    public Item(String name, List<Item> itemList, int level) {
+    public Item(String name, List<Item> itemList) {
         this.name = name;
         this.itemList = itemList;
-        this.level = level;
     }
 
     public String getName() {
@@ -27,14 +25,6 @@ public class Item {
 
     public void setMenuList(List<Item> itemList) {
         this.itemList = itemList;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     @Override
