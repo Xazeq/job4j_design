@@ -42,7 +42,7 @@ public class SomeMenuTest {
         SomeMenu someMenu = new SomeMenu();
         someMenu.addMenu(item);
         Item expected = new Item("Задача 2.1.1.", new ArrayList<>());
-        Item result = someMenu.select("Задача 2.1.1.");
+        Item result = someMenu.getItemByName("Задача 2.1.1.");
         assertThat(result.getName(), is(expected.getName()));
     }
 }

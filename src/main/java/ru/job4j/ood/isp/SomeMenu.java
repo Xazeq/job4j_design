@@ -3,13 +3,12 @@ package ru.job4j.ood.isp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SomeMenu implements Action, Print {
+public class SomeMenu implements Print {
     private final List<Item> itemList = new ArrayList<>();
 
-    @Override
-    public void action(String name) {
-        Item result = select(name);
-        System.out.println("Do something");
+    public void select(Action action, String name) {
+        Item result = getItemByName(name);
+        action.action(result);
     }
 
     @Override
@@ -26,7 +25,7 @@ public class SomeMenu implements Action, Print {
         return "----";
     }
 
-    public Item select(String name) {
+    public Item getItemByName(String name) {
         Item result = null;
         for (var menu : itemList) {
                 if (menu.getName().equals(name)) {
